@@ -10,8 +10,8 @@ Fuente original: [UCI Machine Learning Repository, Student Performance](https://
 
 ## Ejecución
 
-Con Python y las bibliotecas `pandas`, `scipy` y `Pillow` instaladas, ejecutar `python analisis.py`. Los resultados se guardan en `resultados/`: resúmenes, gráficos y tablas preparadas por asignatura. Ejecutar `python -m unittest discover -s tests -v` para comprobar las salidas principales.
+Con Python 3.10 a 3.13, crear un entorno virtual e instalar las dependencias con `python -m pip install -r requirements.txt`. Ejecutar `python analisis.py` para generar los resúmenes, gráficos y tablas preparadas por asignatura en `resultados/`. Ejecutar `python -m unittest discover -s tests -v` para comprobar las salidas principales.
 
-Para generar los perfiles automáticos exigidos por el laboratorio se necesita además `ydata-profiling` y ejecutar `python analisis.py --perfilado`. Esta opción requiere un entorno compatible con esa biblioteca.
+Para generar los perfiles automáticos exigidos por el laboratorio, ejecutar `python analisis.py --perfilado`. Se genera un archivo HTML por asignatura dentro de `resultados/`.
 
 Las tablas conservan las variables originales y añaden `studytime_hours`, una etiqueta legible del tiempo de estudio. No se imputan valores ni se eliminan filas sin evidencia; si se usan ambas versiones del tiempo de estudio para modelar, debe elegirse una para evitar duplicar la misma información. Las notas de períodos anteriores (`G1`, `G2`) deben usarse como predictores únicamente si están disponibles en el momento de la predicción.

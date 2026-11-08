@@ -48,7 +48,9 @@ Las ausencias muestran correlaciones de 0,018 en Matemáticas y -0,159 en Portug
 
 ### 3.4 Perfilado y calidad
 
-La revisión con pandas permitió comprobar dimensiones, tipos, valores nulos, duplicados, distribuciones y estadísticas. El perfilado automático con ydata_profiling, solicitado por la rúbrica, está pendiente de ejecución porque la biblioteca aún no está disponible en el entorno. El código incluye la opción para generarlo cuando se disponga de un entorno compatible; no atribuimos resultados a un perfil que todavía no se ha ejecutado.
+Además de la revisión con pandas, generamos un perfil automático con ydata_profiling para cada asignatura. Ambos perfiles confirman 33 variables y ninguna celda vacía; clasifican 17 variables como texto y 16 como numéricas. Algunas variables numéricas representan categorías ordenadas, por lo que su interpretación debe seguir el diccionario original.
+
+En Matemáticas, el perfil señala 312 ceros en fracasos anteriores, 115 en ausencias y 38 en la nota final. En Portugués señala 549, 244 y 15, respectivamente. Los ceros en fracasos y ausencias indican que no se registraron esos eventos, mientras que cero es un valor posible de la nota. Por eso las alertas ayudan a revisar las variables, pero no justifican borrar esos registros. Los informes HTML completos están en la carpeta de resultados.
 
 ### 3.5 Preparación de los datos
 
