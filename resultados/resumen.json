@@ -1,0 +1,74 @@
+{
+  "matematicas": {
+    "filas": 395,
+    "columnas": 33,
+    "nulos": 0,
+    "duplicados": 0,
+    "nota_media": 10.415,
+    "nota_mediana": 11.0,
+    "notas_cero": 38,
+    "correlaciones_spearman": {
+      "studytime": 0.1052,
+      "goout": -0.1661,
+      "Dalc": -0.1209,
+      "Walc": -0.1045,
+      "absences": 0.0177,
+      "failures": -0.3612,
+      "G3": 1.0
+    },
+    "tiempo_estudio": {
+      "1": {
+        "count": 105,
+        "mean": 10.048
+      },
+      "2": {
+        "count": 198,
+        "mean": 10.172
+      },
+      "3": {
+        "count": 65,
+        "mean": 11.4
+      },
+      "4": {
+        "count": 27,
+        "mean": 11.259
+      }
+    }
+  },
+  "portugues": {
+    "filas": 649,
+    "columnas": 33,
+    "nulos": 0,
+    "duplicados": 0,
+    "nota_media": 11.906,
+    "nota_mediana": 12.0,
+    "notas_cero": 15,
+    "correlaciones_spearman": {
+      "studytime": 0.2747,
+      "goout": -0.105,
+      "Dalc": -0.2084,
+      "Walc": -0.1709,
+      "absences": -0.1585,
+      "failures": -0.4484,
+      "G3": 1.0
+    },
+    "tiempo_estudio": {
+      "1": {
+        "count": 212,
+        "mean": 10.844
+      },
+      "2": {
+        "count": 305,
+        "mean": 12.092
+      },
+      "3": {
+        "count": 97,
+        "mean": 13.227
+      },
+      "4": {
+        "count": 35,
+        "mean": 13.057
+      }
+    }
+  }
+}
