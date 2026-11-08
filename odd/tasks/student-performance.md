@@ -9,7 +9,7 @@ Branch: `feat/student-performance-analysis`; delivery: `ask-on-risk`; runner: Py
 ## Tasks
 - T1 [S1,S3] inline: acquire and inspect dataset, document provenance and overlap — completed; source files checked.
 - T2 [S1,S3] inline: reproducible exploration, profiling, preparation and checks — in progress; automatic profiles remain pending.
-- T3 [S2,S3] inline: report based on results and replace old content in the specified Google Doc — pending.
+- T3 [S2,S3] inline: report based on results and replace old content in the specified Google Doc — in progress; profiling section and final layout verification remain.
 
 ## Log
 L1: “dale, ponte a hacer con commits constantes, conventional commits, si quieres anotalo en el agents, toma en cuenta que tienes que trabajar en este link y yo me encargare de hacer los entregables, tu solo haz el proyecto y el documento asi excelentes https://docs.google.com/document/d/1u6Vl9sSZKamb7uFqXpfdsR-OtG0Yz9HRyQ33XZLuIoA/edit?usp=sharing”
@@ -17,3 +17,4 @@ L2: The selected Kaggle archive contains Mathematics and Portuguese files. Its d
 L3: Initial commit `330e20e` initialized the repository; the feature branch is `feat/student-performance-analysis`.
 L4: Kaggle archive inspected: 395 Mathematics rows and 649 Portuguese rows, each with 33 columns, no missing values or exact duplicate rows in the original files. Python environment lacks `ydata_profiling` and plotting libraries.
 L5: A reproducible Python analysis prepares one table per subject, adds a readable study-time category, calculates descriptive and bivariate statistics, and creates charts. Public-interface test passed; automatic profiling still requires `ydata_profiling`.
+L6: Draft report written to informe.md and the authorized Google Doc; cover preserved and two charts inserted. The report explicitly marks automated profiling as pending.
