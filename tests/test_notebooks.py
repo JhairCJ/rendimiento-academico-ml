@@ -28,13 +28,23 @@ class NotebookIntegrationTest(unittest.TestCase):
             for subject, count in [('matematicas', 395), ('portugues', 649)]:
                 results = workdir / 'resultados'
                 data = pd.read_csv(results / f'tabla_minable_{subject}.csv')
+                source_file = 'student-mat.csv' if subject == 'matematicas' else 'student-por.csv'
+                original = pd.read_csv(workdir / 'datos' / source_file, sep=';')
                 self.assertEqual(len(data), count)
                 self.assertEqual(data.isna().sum().sum(), 0)
                 self.assertIn('studytime_hours', data)
+                pd.testing.assert_frame_equal(data[original.columns], original)
+                self.assertEqual(data['studytime_hours'].tolist(),
+                                 original['studytime'].map({1: '<2', 2: '2-5', 3: '5-10', 4: '>10'}).tolist())
                 self.assertTrue((results / f'perfil_{subject}.html').stat().st_size > 1000)
                 self.assertTrue((results / f'habitos_{subject}.png').stat().st_size > 1000)
                 summary = pd.read_csv(results / f'{subject}_studytime_y_G3.csv', index_col=0)
                 self.assertEqual(summary['count'].sum(), count)
+                expected = original.groupby('studytime')['G3'].agg(['count', 'mean', 'median']).round(3)
+                pd.testing.assert_frame_equal(summary, expected)
+                absences = pd.read_csv(results / f'{subject}_ausencias_agrupadas.csv', index_col=0)
+                self.assertEqual(absences['count'].sum(), count)
+                self.assertEqual(absences.loc['0', 'count'], original['absences'].eq(0).sum())
 
 
 if __name__ == '__main__':
