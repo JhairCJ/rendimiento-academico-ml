@@ -4,8 +4,11 @@ import argparse
 import json
 from pathlib import Path
 
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
 import pandas as pd
-from PIL import Image, ImageDraw, ImageFont
+import seaborn as sns
 
 ROOT = Path(__file__).resolve().parent
 SOURCES = {'matematicas': 'student-mat.csv', 'portugues': 'student-por.csv'}
@@ -15,25 +18,18 @@ HABITS = ['studytime', 'goout', 'Dalc', 'Walc', 'absences', 'failures']
 def chart(frame, path, title):
     """Display the mean final grade and sample size for each study-time group."""
     grouped = frame.groupby('studytime')['G3'].agg(['mean', 'count'])
-    image = Image.new('RGB', (1000, 600), 'white')
-    draw = ImageDraw.Draw(image)
-    try:
-        font = ImageFont.truetype('arial.ttf', 24)
-        large = ImageFont.truetype('arial.ttf', 30)
-    except OSError:
-        font = large = ImageFont.load_default()
-    draw.text((55, 25), title, fill='#17223b', font=large)
-    draw.text((55, 70), 'Nota final media (escala de 0 a 20)', fill='#36445a', font=font)
-    draw.line((100, 480, 930, 480), fill='#53647a', width=2)
-    labels = {1: '<2 h', 2: '2-5 h', 3: '5-10 h', 4: '>10 h'}
-    for index, (level, values) in enumerate(grouped.iterrows()):
-        x = 160 + index * 195
-        height = round(values['mean'] / 20 * 330)
-        draw.rectangle((x, 480 - height, x + 110, 480), fill='#317f8a')
-        draw.text((x, 445 - height), f"{values['mean']:.2f}", fill='#17223b', font=font)
-        draw.text((x, 492), labels[level], fill='#17223b', font=font)
-        draw.text((x, 527), f"n={int(values['count'])}", fill='#53647a', font=font)
-    image.save(path)
+    labels = {1: '<2 h', 2: '2–5 h', 3: '5–10 h', 4: '>10 h'}
+    sns.set_theme(style='whitegrid', palette='deep')
+    fig, ax = plt.subplots(figsize=(8, 4.6))
+    bars = ax.bar([labels[i] for i in grouped.index], grouped['mean'], color='#327986')
+    for bar, (_, values) in zip(bars, grouped.iterrows()):
+        ax.text(bar.get_x() + bar.get_width() / 2, bar.get_height() + 0.25,
+                f"{values['mean']:.2f}\nn={int(values['count'])}", ha='center', fontsize=9)
+    ax.set(title=title, xlabel='Horas de estudio por semana',
+           ylabel='Nota final media (0 a 20)', ylim=(0, 20))
+    fig.tight_layout()
+    fig.savefig(path, dpi=160, bbox_inches='tight')
+    plt.close(fig)
 
 
 def analyze(subject, source, output, profiling):
@@ -52,7 +48,8 @@ def analyze(subject, source, output, profiling):
         frame.groupby(habit)['G3'].agg(['count', 'mean', 'median']).round(3).to_csv(
             output / f'{subject}_{habit}_y_G3.csv', encoding='utf-8'
         )
-    chart(frame, output / f'habitos_{subject}.png', f'Tiempo de estudio y nota final - {subject}')
+    subject_name = {'matematicas': 'Matemáticas', 'portugues': 'Portugués'}[subject]
+    chart(frame, output / f'habitos_{subject}.png', f'Tiempo de estudio y nota final · {subject_name}')
     if profiling:
         from ydata_profiling import ProfileReport
         ProfileReport(frame, title=f'Perfil de datos: {subject}', minimal=True).to_file(
