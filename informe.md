@@ -34,23 +34,68 @@ Las variables incluyen datos personales y familiares, hábitos, apoyos educativo
 
 En la revisión inicial no encontramos valores nulos ni filas completamente duplicadas en ninguno de los dos archivos. Una fila igual a otra no demostraría por sí sola que se trata de la misma persona, pero en esta revisión no hubo casos que resolver. Consultamos las definiciones disponibles y conservamos las variables con sus escalas originales. No contamos con información externa para verificar la precisión de cada respuesta del cuestionario.
 
-La nota final media fue 10,42 en Matemáticas y 11,91 en Portugués; las medianas fueron 11 y 12, respectivamente. Registramos 38 notas finales de cero en Matemáticas y 15 en Portugués. Al ser valores permitidos por la escala, no los eliminamos ni asumimos que son errores. Las tablas de estadísticas y frecuencias detalladas acompañan al código.
+La tabla resume los resultados generales de cada asignatura.
+
+**Tabla 1. Datos y notas finales por asignatura**
+
+| Indicador | Matemáticas | Portugués |
+|---|---:|---:|
+| Registros | 395 | 649 |
+| Variables originales | 33 | 33 |
+| Nota media | 10,42 | 11,91 |
+| Mediana | 11 | 12 |
+| Notas de cero | 38 | 15 |
+
+Las notas de cero están dentro de la escala. Por eso las conservamos y no asumimos que sean errores. Las estadísticas detalladas acompañan al código.
 
 ### 3.3 Hábitos y nota final
 
-En Matemáticas, la nota media por tiempo de estudio fue 10,05 para menos de 2 horas semanales (105 registros), 10,17 para 2 a 5 horas (198), 11,40 para 5 a 10 horas (65) y 11,26 para más de 10 horas (27). En Portugués, los promedios fueron 10,84 (212), 12,09 (305), 13,23 (97) y 13,06 (35), en el mismo orden. La pauta general favorece a los grupos que declaran más tiempo de estudio, aunque no aumenta de manera uniforme y los grupos de más de 10 horas son pequeños.
+La tabla compara la nota final media según el tiempo de estudio semanal. El tamaño de cada grupo se indica junto al promedio.
 
-La correlación de Spearman entre tiempo de estudio y G3 fue 0,105 en Matemáticas y 0,275 en Portugués. Esta medida resume la relación ordenada entre variables; no indica que estudiar más sea la única explicación de una nota. La relación con salidas fue -0,166 y -0,105, respectivamente, y con consumo entre semana -0,121 y -0,208. Son asociaciones descriptivas y relativamente débiles en estos datos.
+**Tabla 2. Tiempo de estudio y nota final**
 
-En ambos cursos se observa una relación negativa más marcada entre fracasos anteriores y nota final: -0,361 en Matemáticas y -0,448 en Portugués. Por ejemplo, quienes no registraban fracasos anteriores obtuvieron medias de 11,25 y 12,51; quienes registraban uno obtuvieron 8,12 y 8,64. Esto no permite saber si los fracasos provocaron las notas, pues pueden intervenir otras condiciones que no medimos.
+| Estudio por semana | Matemáticas: media (n) | Portugués: media (n) |
+|---|---:|---:|
+| Menos de 2 horas | 10,05 (105) | 10,84 (212) |
+| De 2 a 5 horas | 10,17 (198) | 12,09 (305) |
+| De 5 a 10 horas | 11,40 (65) | 13,23 (97) |
+| Más de 10 horas | 11,26 (27) | 13,06 (35) |
 
-Las ausencias muestran correlaciones de 0,018 en Matemáticas y -0,159 en Portugués. La diferencia entre materias recuerda que una sola variable no describe toda la experiencia escolar. Las comparaciones por cada categoría, incluidos sus tamaños, están disponibles en los archivos de resultados.
+En general, los grupos que declaran más tiempo de estudio presentan promedios más altos. El aumento no es uniforme y los grupos de más de 10 horas son pequeños, así que conviene interpretar sus resultados con cuidado.
+
+La correlación de Spearman resume la relación ordenada entre cada variable y la nota final. Los valores positivos indican que ambas tienden a aumentar juntas; los negativos, que una tiende a disminuir cuando aumenta la otra.
+
+**Tabla 3. Relación de los hábitos y antecedentes con la nota final**
+
+| Variable comparada con G3 | Matemáticas | Portugués |
+|---|---:|---:|
+| Tiempo de estudio | 0,105 | 0,275 |
+| Salidas con amigos | −0,166 | −0,105 |
+| Consumo entre semana | −0,121 | −0,208 |
+| Fracasos anteriores | −0,361 | −0,448 |
+| Ausencias | 0,018 | −0,159 |
+
+Estas asociaciones son descriptivas: no demuestran que un hábito sea la causa de una nota.
+
+Los fracasos anteriores presentan la relación negativa más marcada en ambos cursos. Entre quienes no registraban fracasos, la nota media fue 11,25 en Matemáticas y 12,51 en Portugués; entre quienes registraban uno, fue 8,12 y 8,64, respectivamente. Pueden intervenir otras condiciones que no medimos.
+
+La relación con las ausencias es distinta en cada asignatura. Las comparaciones por categoría, con el tamaño de cada grupo, están disponibles en los archivos de resultados.
 
 ### 3.4 Perfilado y calidad
 
 Además de la revisión con pandas, generamos un perfil automático con ydata_profiling para cada asignatura. Ambos perfiles confirman 33 variables y ninguna celda vacía; clasifican 17 variables como texto y 16 como numéricas. Algunas variables numéricas representan categorías ordenadas, por lo que su interpretación debe seguir el diccionario original.
 
-En Matemáticas, el perfil señala 312 ceros en fracasos anteriores, 115 en ausencias y 38 en la nota final. En Portugués señala 549, 244 y 15, respectivamente. Los ceros en fracasos y ausencias indican que no se registraron esos eventos, mientras que cero es un valor posible de la nota. Por eso las alertas ayudan a revisar las variables, pero no justifican borrar esos registros. Los informes HTML completos están en la carpeta de resultados.
+El perfil automático destacó la frecuencia de algunos valores cero:
+
+**Tabla 4. Valores cero señalados por el perfilado**
+
+| Variable con valor cero | Matemáticas | Portugués |
+|---|---:|---:|
+| Fracasos anteriores | 312 | 549 |
+| Ausencias | 115 | 244 |
+| Nota final | 38 | 15 |
+
+En fracasos y ausencias, cero indica que no se registraron esos eventos; en la nota final es un valor posible. Las alertas sirven para revisar las variables, pero no justifican eliminar esos registros. Los perfiles HTML completos están en la carpeta de resultados.
 
 ### 3.5 Preparación de los datos
 
